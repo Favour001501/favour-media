@@ -1,0 +1,8 @@
+<!doctype html><meta charset="utf-8"><title>Sending banner</title><body style="font-family:sans-serif;padding:20px">Sending banner…
+<script>
+(async()=>{const f=new URLSearchParams(location.search).get('f');
+const b=await fetch(f,{cache:'no-store'}).then(r=>r.blob());
+const buf=await b.arrayBuffer();
+(window.opener||window.parent).postMessage({banner:true,name:f.split('/').pop(),type:b.type,buf},'*',[buf]);
+document.body.textContent='Sent '+buf.byteLength+' bytes';setTimeout(()=>window.close(),1500)})();
+</script>
